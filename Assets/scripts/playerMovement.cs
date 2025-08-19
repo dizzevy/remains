@@ -20,6 +20,10 @@ public class playerMovement : MonoBehaviour
     public float jumpPower = 7f;
 
     public float gravity = 10f;
+    private bool wasFalling; // падал ли игрок
+    private float fallSpeed; // скорость падения
+
+    public float minDamageFallSpeed = -10f;   // скорость, после которой начинаем получать урон
 
     [Header("Sensi")]
     public float sensitivity = 2f;
@@ -43,6 +47,8 @@ public class playerMovement : MonoBehaviour
     public bool canMove = true;
 
     public bool canJump = true;
+
+    public float damageInd = 2f;
 
 
 
@@ -71,6 +77,7 @@ public class playerMovement : MonoBehaviour
     void Update()
     {
         Movement();
+        CheckFallDamage();
     }
 
     void Movement()
@@ -151,8 +158,27 @@ public class playerMovement : MonoBehaviour
         yield return new WaitForSeconds(2f); // ждём 2 секунды
         if (lifeInd.stamina >= 30)
         {
-            canJump = true; 
+            canJump = true;
         }        // снова включаем прыжок
+    }
+
+    void CheckFallDamage()
+    {
+        if (!characterController.isGrounded) // если перс не на земле - летит
+        {
+            wasFalling = true;
+            fallSpeed = moveDirection.y; // запоминаем скорость падения
+        }
+        else if (wasFalling)
+        {
+            if (fallSpeed < minDamageFallSpeed)
+            {
+                float damage = Mathf.Abs(fallSpeed) * damageInd;
+                lifeInd.TakeDamage(damage);
+            }
+
+            wasFalling = false; //сбрасываем состояние падения
+        }
     }
     
 

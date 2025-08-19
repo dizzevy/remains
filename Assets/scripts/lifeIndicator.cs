@@ -1,14 +1,32 @@
+using TMPro;
 using System;
 using UnityEngine;
 
 public class lifeIndicator : MonoBehaviour
 {
 
-    public float health = 1000f;
+    [Header("UI")]
+    public TextMeshProUGUI healthText;
+    public TextMeshProUGUI staminaText;
+
+    [Header("LIFE INDICATORS")]
+    public float overallHealthCount;
+    public float maxHealth = 1000f;
+    public float bleeding = 0f;
+    public float pain = 0f;
+    public float depresion = 0f;
+
+    [Header("BODY PARTS")]
+    //Head
+    //Lower leg left
+    public string lowerLegLeftStatus = "";
+
+
+
+    [Header("STAMINA")]
     public float stamina = 100f;
     public float maxStamina = 100f;
     public float decreaseRunDuration = 20f;
-
     public float increaseRunDuration = 40f;
 
     public float decreaseJumpStamina = 10f;
@@ -19,6 +37,11 @@ public class lifeIndicator : MonoBehaviour
     private CharacterController characterController;
 
     private bool wasGroundedLastFrame;
+
+    void Start()
+    {
+        overallHealthCount = maxHealth;
+    }
 
 
     void Awake()
@@ -35,6 +58,7 @@ public class lifeIndicator : MonoBehaviour
         runStamina();
         wasGroundedLastFrame = characterController.isGrounded;
         Debug.Log("Stamina: " + stamina);
+        UI();
     }
 
 
@@ -75,9 +99,25 @@ public class lifeIndicator : MonoBehaviour
         stamina -= decreaseJumpStamina;
     }
 
-    void healthDamage()
+
+
+    //bodyPartsStatus
+    void bodyPartStatus_Stable()
     {
-        
+
+    }
+
+
+    public void TakeDamage(float damage)
+    {
+        overallHealthCount -= damage;
+        overallHealthCount = Mathf.Clamp(overallHealthCount, 0, maxHealth);
+    }
+
+    void UI()
+    {
+        healthText.text = "health: " + ((int)overallHealthCount).ToString();
+        staminaText.text = "stamina: " + ((int)stamina).ToString();
     }
 
 
