@@ -149,7 +149,10 @@ public class playerMovement : MonoBehaviour
     {
         canJump = false;        // отключаем прыжок
         yield return new WaitForSeconds(2f); // ждём 2 секунды
-        canJump = true;         // снова включаем прыжок
+        if (lifeInd.stamina >= 30)
+        {
+            canJump = true; 
+        }        // снова включаем прыжок
     }
     
 

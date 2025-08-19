@@ -43,11 +43,13 @@ public class lifeIndicator : MonoBehaviour
         if (stamina <= 0)
         {
             stamina = 0;
+            playerMove.canJump = false;
             canRun = false;
         }
-        else if (!canRun && stamina >= 30)
+        else if (!canRun && !playerMove.canJump && stamina >= 30)
         {
             canRun = true;
+            playerMove.canJump = true;
         }
 
 
