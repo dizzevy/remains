@@ -42,6 +42,9 @@ public class playerMovement : MonoBehaviour
     //буловая переменная, может ли двигаться?
     public bool canMove = true;
 
+    public bool canJump = true;
+
+
 
     lifeIndicator lifeInd;
 
@@ -96,9 +99,11 @@ public class playerMovement : MonoBehaviour
 
 
         //если жмать на пробел, при условии что можно двигаться и при условии что перс стоит на земле, то присваиваем 3-х мерному значению - jumpPower 
-        if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
+        if (Input.GetButton("Jump") && canJump && canMove && characterController.isGrounded)
         {
             moveDirection.y = jumpPower; //тут y уже в пространстве, то есть вверх, а не влево-вправо. Задает направление
+            lifeInd.jumpStamina();
+            StartCoroutine(JumpCooldown());
         }
         else
         {
@@ -138,6 +143,13 @@ public class playerMovement : MonoBehaviour
 
         }
 
+    }
+
+    IEnumerator JumpCooldown()
+    {
+        canJump = false;        // отключаем прыжок
+        yield return new WaitForSeconds(2f); // ждём 2 секунды
+        canJump = true;         // снова включаем прыжок
     }
     
 

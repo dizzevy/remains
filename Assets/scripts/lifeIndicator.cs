@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class lifeIndicator : MonoBehaviour
 {
+
+    public float health = 1000f;
     public float stamina = 100f;
     public float maxStamina = 100f;
     public float decreaseRunDuration = 20f;
@@ -12,7 +14,6 @@ public class lifeIndicator : MonoBehaviour
     public float decreaseJumpStamina = 10f;
 
     public bool canRun = true;
-    public bool canJump = true;
 
     private playerMovement playerMove;
     private CharacterController characterController;
@@ -32,7 +33,6 @@ public class lifeIndicator : MonoBehaviour
     void Update()
     {
         runStamina();
-        jumpStamina();
         wasGroundedLastFrame = characterController.isGrounded;
         Debug.Log("Stamina: " + stamina);
     }
@@ -68,13 +68,19 @@ public class lifeIndicator : MonoBehaviour
         }
     }
 
-    void jumpStamina()
+    public void jumpStamina()
     {
-         if (Input.GetButtonDown("Jump") && playerMove.canMove && wasGroundedLastFrame)
-         {
-            stamina -= decreaseJumpStamina;
-         }
+        stamina -= decreaseJumpStamina;
     }
+
+    void healthDamage()
+    {
+        
+    }
+
+
+    
+
 
 
 
