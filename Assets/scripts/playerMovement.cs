@@ -155,11 +155,11 @@ public class playerMovement : MonoBehaviour
     IEnumerator JumpCooldown()
     {
         canJump = false;        // отключаем прыжок
-        yield return new WaitForSeconds(2f); // ждём 2 секунды
+        yield return new WaitForSeconds(1f); // ждём секунды
         if (lifeInd.stamina >= 30)
         {
-            canJump = true;
-        }        // снова включаем прыжок
+            canJump = true; // снова включаем прыжок
+        }
     }
 
     void CheckFallDamage()
