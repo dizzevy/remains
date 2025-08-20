@@ -73,6 +73,7 @@ public class lifeIndicator : MonoBehaviour
     void Update()
     {
         runStamina();
+        RefreshJumpFromStamina();
         wasGroundedLastFrame = characterController.isGrounded;
         Debug.Log("Stamina: " + stamina);
         UI();
@@ -117,6 +118,22 @@ public class lifeIndicator : MonoBehaviour
     {
         stamina -= decreaseJumpStamina;
     }
+
+    void RefreshJumpFromStamina()
+{
+    if (stamina <= 0f)
+    {
+        // блокируем прыжок, если выжгли стамину в ноль
+        playerMove.canJump = false;
+        return;
+    }
+
+    // если прыжок сейчас заблокирован И стамины уже ≥ 30 И нет кулдауна — включаем обратно
+    if (!playerMove.canJump && stamina >= 30f && !playerMove.IsJumpCooldownActive)
+    {
+        playerMove.canJump = true;
+    }
+}
 
 
 
