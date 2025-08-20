@@ -24,6 +24,7 @@ public class playerMovement : MonoBehaviour
     private float fallSpeed; // скорость падения
     private bool jumpCooldownActive = false;
     public bool IsJumpCooldownActive => jumpCooldownActive;
+    public float coolDown = 2f;
 
     public float minDamageFallSpeed = -10f;   // скорость, после которой начинаем получать урон
 
@@ -158,9 +159,9 @@ public class playerMovement : MonoBehaviour
 {
     jumpCooldownActive = true;
     canJump = false;
-    yield return new WaitForSeconds(2f);
+    yield return new WaitForSeconds(coolDown);
     jumpCooldownActive = false;
-    if (lifeInd.stamina >= 30)
+    if (lifeInd.stamina >= lifeInd.minStamina)
     {
         canJump = true;
     }

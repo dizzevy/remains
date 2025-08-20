@@ -12,19 +12,20 @@ public class lifeIndicator : MonoBehaviour
     public TextMeshProUGUI thirstyText;
 
     [Header("LIFE INDICATORS")]
+//HEALTH
     public float overallHealthCount;
     public float maxHealth = 1000f;
-
+//HUNGER
     public float Hunger = 1000f;
     public float MaxHungerCount = 1000f;
     public float StarvationRatePerSecond;
     public float fullStarvationTime = 3600f;
-
+//THIRSTY
     public float thirsty = 1000f;
     public float MaxThirstyCount = 1000f;
     public float ThirstyRatePerSecond;
     public float fullThirstyTime = 3600f;
-
+//ILLNESSES
     public float bleeding = 0f;
     public float pain = 0f;
     public float depresion = 0f;
@@ -41,12 +42,15 @@ public class lifeIndicator : MonoBehaviour
     [Header("STAMINA")]
     public float stamina = 100f;
     public float maxStamina = 100f;
+    public float minStamina = 30f;
     public float decreaseRunDuration = 20f;
     public float increaseRunDuration = 40f;
 
     public float decreaseJumpStamina = 10f;
 
     public bool canRun = true;
+
+    [Header("Player")]
 
     private playerMovement playerMove;
     private CharacterController characterController;
@@ -90,7 +94,7 @@ public class lifeIndicator : MonoBehaviour
             playerMove.canJump = false;
             canRun = false;
         }
-        else if (!canRun && !playerMove.canJump && stamina >= 30)
+        else if (!canRun && !playerMove.canJump && stamina >= minStamina)
         {
             canRun = true;
             playerMove.canJump = true;
@@ -129,7 +133,7 @@ public class lifeIndicator : MonoBehaviour
     }
 
     // если прыжок сейчас заблокирован И стамины уже ≥ 30 И нет кулдауна — включаем обратно
-    if (!playerMove.canJump && stamina >= 30f && !playerMove.IsJumpCooldownActive)
+    if (!playerMove.canJump && stamina >= minStamina && !playerMove.IsJumpCooldownActive)
     {
         playerMove.canJump = true;
     }
