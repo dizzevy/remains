@@ -49,9 +49,12 @@ public class playerMovement : MonoBehaviour
     //буловая переменная, может ли двигаться?
     public bool canMove = true;
 
+    public bool canLook = true;
+
     public bool canJump = true;
 
     public float damageInd = 2f;
+
 
 
 
@@ -144,7 +147,7 @@ public class playerMovement : MonoBehaviour
         //Команда движения. Код сдвигает персонажа в сторону moveDirection с учётом скорости и времени кадра.
         characterController.Move(moveDirection * Time.deltaTime);
 
-        if (canMove) //если может двигаться
+        if (canMove && canLook) //если может двигаться
         {
             rotationX += -Input.GetAxis("Mouse Y") * sensitivity; // присваиваем переменной движения камеры вверх-вниз значение мышки по y
             rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit); //ограничивает поворт камеры, на определенное кол. градусов.

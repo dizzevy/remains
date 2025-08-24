@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f2840e05db153b40b0dbd9400d22a5f, type: 3}
+  m_Name: Bread
+  m_EditorClassIdentifier: 
+  ItemName: Bread
+  MaxAmount: 2
+  ItemPrefab: {fileID: 1123941434740956546, guid: 9a243de7d8e68f247b81d4a63806c810, type: 3}
+  Icon: {fileID: -267810102, guid: 371b4e2725de9744c89aeef7d51e3fcd, type: 3}
+  itemType: 1
+  healAmount: 15
+  saturationAmount: 50
